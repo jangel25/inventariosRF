@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppCocacolaNayMobiV2.Views.Inventarios.FicViCpConteoCatProductosList"
+             Title="Lista de Productos">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Name="Nuevo Producto"
+            Command="{Binding ficMetAddCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="plus" />
+                    <On Platform="UWP" Value="Assets/plus.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ListView
+        ItemsSource="{Binding FicMetZt_cat_productos_Items}"
+        SelectedItem="{Binding FicMetZt_cat_productos_SelectedItem, Mode=TwoWay}">
+        <ListView.Header >
+            <Label TextColor="Blue" HorizontalOptions="StartAndExpand">
+                SKU                                                                   CodigoBarras                                                                Material                                                        Id</Label>
+        </ListView.Header>
+        <ListView.Footer>
+            <SearchBar Placeholder="busqueda" Text="{Binding busqueda}" SearchCommand="{Binding ficMetSearch}"></SearchBar>
+        </ListView.Footer>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <ViewCell.View>
+                        <StackLayout
+                            Padding="20,20,20,20"
+                            Orientation="Horizontal"
+                            HorizontalOptions="FillAndExpand">
+                            <Label 
+                                Text="{Binding SKU}"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="StartAndExpand" />
+                            <Label 
+                                Text="{Binding CodigoBarras}"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="StartAndExpand" />
+                            <Label 
+                                Text="{Binding Material}"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="StartAndExpand" />
+                            <Label 
+                                Text="{Binding Id}"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="StartAndExpand" />
+                        </StackLayout>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

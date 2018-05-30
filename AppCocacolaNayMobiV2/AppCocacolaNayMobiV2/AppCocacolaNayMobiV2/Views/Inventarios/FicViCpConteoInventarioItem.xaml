@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppCocacolaNayMobiV2.Views.Inventarios.FicViCpConteoInventarioItem"
+             >
+                
+    <ScrollView>
+        <StackLayout
+            VerticalOptions="StartAndExpand"
+            Padding="20">
+
+            
+
+            <Label Text="Id" />
+            <Entry Text="{Binding Item.Id}" IsEnabled="False"/>
+
+            <Label Text="Id Inventario" />
+            <Entry Text="{Binding Item.IdInventario}"/>
+
+
+            <Label Text="CEDI" />
+            <Picker               
+                ItemsSource="{Binding FicMetItemsCEDIS}"
+                SelectedItem="{Binding SelectedCEDI}"
+                ItemDisplayBinding="{Binding CEDI}" />
+            
+
+            <Label Text="Fecha ultima modificación"/>
+            <Entry x:Name="entryFecUltModidicacion"
+                IsEnabled="False"/>
+
+            <Label Text="Usuario moficó"/>
+            <Entry 
+                x:Name="usuModifico"
+                IsEnabled="False"/>
+
+            
+            <Label Text="Activo"/>
+            <Entry x:Name="entryActivo" Text="{Binding Item.Activo}"    IsVisible="False"    />
+            <Switch x:Name="activo" Toggled="Switch_OnToggledActivo"/>
+
+            
+            
+            <Label Text="Borrado"/>
+            <Entry x:Name="entryBorrado" Text="{Binding Item.Borrado}" Unfocused="inicioSwitch"   IsVisible="False"    />
+            <Switch x:Name="borrado"  Toggled="Switch_OnToggledBorrado"/>
+
+            
+
+
+
+
+            <Button Text="Guardar"  Command="{Binding FicMetSaveCommand}"/>
+            <!--<Button Text="Eliminar" Command="{Binding FicMetDeleteCommand}"/>-->
+            <Button Text="Cancelar" Command="{Binding FicMetCancelCommand}"/>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

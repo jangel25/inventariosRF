@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppCocacolaNayMobiV2.Views.Inventarios.FicViCpUnidadMedidaList"
+             Title="LISTADO DE UNIDADES DE MEDIDA">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Name="Nuevo"
+            Command="{Binding ficMetAddCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="plus.png" />
+                    <On Platform="UWP" Value="Assets/plus.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+
+        <ToolbarItem 
+            Name="Actualizar"
+            Command="{Binding ficMetEditCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="update.png" />
+                    <On Platform="UWP" Value="Assets/update.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+
+        <ToolbarItem 
+            Name="Eliminar"
+            Command="{Binding ficMetDeleteCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="delete.png" />
+                    <On Platform="UWP" Value="Assets/delete.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+        <ToolbarItem 
+            Name="Detalle"
+            Command="{Binding ficMetDetailCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="detalle.png" />
+                    <On Platform="UWP" Value="Assets/detalle.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+        <Grid
+            Padding="20,5,20,5"            
+            HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout
+                Grid.Row="0"
+                Padding="10,5,10,5"
+                Orientation="Horizontal"
+                VerticalOptions="StartAndExpand">
+
+                <SearchBar
+                    Placeholder="Buscar"
+                    PlaceholderColor="Blue"
+                    HorizontalOptions="FillAndExpand"
+                    x:Name="FicSearchBar"
+                    SearchButtonPressed="FicSearchButtonPressed"
+                />
+            </StackLayout>
+            <ListView
+                Grid.Row="1"
+                Header=""
+                IsRefreshing="True"
+                x:Name="FicListView"                
+                VerticalOptions="FillAndExpand"
+                ItemsSource="{Binding FicMetZt_unidadmedida_Items}"
+                SelectedItem="{Binding FicMetZt_unidadmedida_SelectedItem, Mode=TwoWay}">
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Padding="20,5,20,5"                            
+                            HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="165*"/>
+                                <ColumnDefinition Width="165*"/>
+                                <ColumnDefinition Width="200*"/>
+                                <ColumnDefinition Width="200*"/>
+                                <ColumnDefinition Width="200*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                    Grid.Column="0"                                
+                                    Text="Id"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalOptions="CenterAndExpand"
+                                    FontAttributes="Bold"
+                                    FontSize="Micro"/>
+
+                            <Label
+                                    Grid.Column="1"
+                                    Text="Id UMedida"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalOptions="CenterAndExpand"
+                                    FontAttributes="Bold"
+                                    FontSize="Micro"/>
+                            <Label
+                                Grid.Column="2"
+                                Text="UMedidad"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="CenterAndExpand"
+                                FontAttributes="Bold"
+                                FontSize="Micro"/>
+                            <Label
+                                Grid.Column="3"
+                                Text="CantidadPZAS"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="CenterAndExpand"
+                                FontAttributes="Bold"
+                                FontSize="Micro"/>
+                            <Label
+                                Grid.Column="4"
+                                Text="Usuario"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="CenterAndExpand"
+                                FontAttributes="Bold"
+                                FontSize="Micro"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout
+                                    Padding="20,5,20,5"
+                                    Orientation="Horizontal"
+                                    HorizontalOptions="FillAndExpand">
+                                    <Label 
+                                        Text="{Binding Id}"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalOptions="CenterAndExpand" />
+                                    <Label 
+                                    Text="{Binding IdUMedida}"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalOptions="StartAndExpand" />
+                                    <Label 
+                                        Text="{Binding UMedida}"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalOptions="CenterAndExpand" />
+                                    <Label 
+                                        Text="{Binding CantidadPZA}"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalOptions="CenterAndExpand" />
+                                    <Label 
+                                        Text="{Binding UsuarioReg}"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalOptions="CenterAndExpand" />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

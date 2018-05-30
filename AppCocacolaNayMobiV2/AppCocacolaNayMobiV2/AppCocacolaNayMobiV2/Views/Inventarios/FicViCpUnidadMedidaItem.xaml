@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppCocacolaNayMobiV2.Views.Inventarios.FicViCpUnidadMedidaItem"
+             Title="Nueva Unidad Medida">
+    <ContentView>
+        <StackLayout VerticalOptions="StartAndExpand" Padding="20">
+            <Label Text="Id:" />
+            <Entry x:Name="txtID" IsEnabled="False" Text="{Binding Item.Id}"/>
+
+            <Label Text="Id Unidad Medida:" />
+            <Entry Text="{Binding Item.IdUMedida}"/>
+
+            <Label Text="Unidad Medida:" />
+            <Entry Text="{Binding Item.UMedida}"/>
+
+            <Label Text="Cantidad Pzas:" />
+            <Entry x:Name="txtCantidadPZA" Text="{Binding Item.CantidadPZA}"/>
+
+            <Label Text="Fecha Registro:" />
+            <Entry x:Name="txtfRegistro" Text="{Binding Item.FechaReg}"/>
+
+            <Label Text="Usuario Registro:" />
+            <Entry x:Name="txtUsuarioreg" Text="{Binding Item.UsuarioReg}"/>
+
+            <Label Text="Activo"/>
+            <Switch Toggled="OnToogleSwitch01" />
+            <Entry x:Name="Activo" Text="{Binding Item.Activo}"/>
+
+
+            <Label Text="Borrado"/>
+            <Switch Toggled="OnToogleSwitch02"/>
+            <Entry x:Name="Borrado" Text="{Binding Item.Borrado}"/>
+
+            <StackLayout VerticalOptions="StartAndExpand" Padding="20">
+                <Button Text="Guardar"  Command="{Binding FicMetSaveCommand}"/>
+                <Button Text="Cancelar" Command="{Binding FicMetCancelCommand}"/>
+            </StackLayout>
+        </StackLayout>
+
+    </ContentView>
+</ContentPage>

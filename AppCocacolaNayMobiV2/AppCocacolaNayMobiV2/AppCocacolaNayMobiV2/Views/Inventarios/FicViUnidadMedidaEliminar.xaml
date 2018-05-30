@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppCocacolaNayMobiV2.Views.Inventarios.FicViUnidadMedidaEliminar"
+             Title="Eliminar Unidad Medida">
+    <ContentView>
+        <StackLayout VerticalOptions="StartAndExpand" Padding="20">
+            <TableView>
+                <TableRoot>
+                    <TableSection Title="¿Desea eliminar este registro?" >
+                        <TextCell Text="ID" Detail="{Binding Item.Id}"/>
+                        <TextCell Text="ID Unidad Medida" Detail="{Binding Item.IdUMedida}"/>
+                        <TextCell Text="Unidad Medida" Detail="{Binding Item.UMedida}"/>
+                        <TextCell Text="Cantidad pieza" Detail="{Binding Item.CantidadPZA}"/>
+                        <TextCell Text="Usuario reg" Detail="{Binding Item.UsuarioReg}"/>
+                        <TextCell Text="Fecha registro" Detail="{Binding Item.FechaReg}"/>
+                        <TextCell Text="Usuario modifico" Detail="{Binding Item.UsuarioMod}"/>
+                        <TextCell Text="Fecha modificacion" Detail="{Binding Item.FechaMod}"/>
+                        <TextCell Text="Activo" Detail="{Binding Item.Activo}"/>
+                        <TextCell Text="Borrado" Detail="{Binding Item.Borrado}"/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <StackLayout VerticalOptions="StartAndExpand" Padding="20">
+                <Button Text="Eliminar" Command="{Binding FicMetDeleteCommand}"/>
+                <Button Text="Cancelar" Command="{Binding FicMetCancelCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentView>
+</ContentPage>

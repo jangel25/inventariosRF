@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppCocacolaNayMobiV2.Views.Inventarios.FicViAlmacenEditar"
+             Title="Editar Almacén">
+    <ScrollView>
+        <StackLayout
+            VerticalOptions="StartAndExpand"
+            Padding="20">
+
+            <Label Text="Id:" />
+            <Entry IsEnabled="False" Text="{Binding Item.Id}" />
+
+            <Label Text="Id CEDI:" />
+            <Picker
+                    SelectedItem="{Binding SelectedCEDI}"
+                    ItemsSource="{Binding FicMetItemsCEDIS}"
+                    ItemDisplayBinding="{Binding CEDI}" />
+
+            <Label Text="Id Almacén:" />
+            <Entry IsEnabled="False" Text="{Binding Item.IdAlmacen}"/>
+
+            <Label Text="Almacén:" />
+            <Entry Text="{Binding Item.Almacen}"/>
+
+            <Label Text="Fecha de Registro:" />
+            <Entry IsEnabled="False" Text="{Binding Item.FechaReg}"/>
+
+            <Label Text="Fecha de Última Modificación:" />
+            <Entry IsEnabled="False" Text="{Binding Item.FechaUltMod}"/>
+
+            <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                    <Label Text="Activo:"/>
+                    <Entry x:Name="FicActivo" Text="{Binding Item.Activo}" IsVisible="False"/>
+                </StackLayout>
+                <Switch
+                    x:Name="ficSwitchActivo"
+                    Toggled="Switch_OnToggledActivo"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                    <Label Text="Borrado:"/>
+                    <Entry x:Name="FicBorrado" Text="{Binding Item.Borrado}" IsVisible="False"/>
+                </StackLayout>
+                <Switch
+                    x:Name="ficSwitchBorrado"
+                    Toggled="Switch_OnToggledBorrado"/>
+            </StackLayout>
+
+            <Button Text="Guardar"  Command="{Binding FicMetSaveCommand}"/>
+            <Button Text="Cancelar" Command="{Binding FicMetCancelCommand}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

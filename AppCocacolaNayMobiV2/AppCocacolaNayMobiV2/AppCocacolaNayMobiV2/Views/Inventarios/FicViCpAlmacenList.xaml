@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             x:Class="AppCocacolaNayMobiV2.Views.Inventarios.FicViCpAlmacenList"
+             Title="Lista de Almacenes">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem 
+            Name="Eliminar"
+            Command="{Binding ficMetDeleteCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="delete.png" />
+                    <On Platform="UWP" Value="Assets/delete.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+
+        <ToolbarItem 
+            Name="Detalle"
+            Command="{Binding ficMetDetailCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="detail.png" />
+                    <On Platform="UWP" Value="Assets/detail.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+
+        <ToolbarItem 
+            Name="Editar"
+            Command="{Binding ficMetEditCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="edit.png" />
+                    <On Platform="UWP" Value="Assets/edit.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+
+        <ToolbarItem 
+            Name="Nuevo"
+            Command="{Binding ficMetAddCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android, iOS" Value="add.png" />
+                    <On Platform="UWP" Value="Assets/add.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <SearchBar 
+                x:Name="FicSearchBar"
+                Grid.Row="0"
+                Grid.Column="0"
+                IsVisible="true"
+                Placeholder="Búsqueda por filtro" 
+                TextChanged="OnFilterTextChanged" />
+
+            <syncfusion:SfDataGrid 
+                x:Name="dataGrid"
+                VerticalOptions="FillAndExpand" 
+                ColumnSizer="LastColumnFill"
+                AutoGenerateColumns="False"
+                AllowSorting="False"
+                ItemsSource="{Binding FicMetZt_cat_almacenes_Items}"
+                SelectedItem="{Binding FicMetZt_cat_almacenes_SelectedItem, Mode=TwoWay}"
+                SelectionMode="Single">
+
+                <syncfusion:SfDataGrid.Columns 
+                    x:TypeArguments="syncfusion:Columns">
+
+                    <syncfusion:GridTextColumn 
+                        HeaderFontAttribute="Bold"
+                        HeaderText="ID" 
+                        MappingName="Id" />
+
+                    <syncfusion:GridTextColumn 
+                        HeaderFontAttribute="Bold"
+                        HeaderText="ID CEDI"
+                        MappingName="IdCEDI" />
+
+                    <syncfusion:GridTextColumn 
+                        HeaderFontAttribute="Bold"
+                        HeaderText="ID Almacén"
+                        MappingName="IdAlmacen" />
+
+                    <syncfusion:GridTextColumn 
+                        HeaderFontAttribute="Bold"
+                        HeaderText="Almacén"
+                        MappingName="Almacen" />
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppCocacolaNayMobiV2.Views.Inventarios.FicViCpConteoCatProductosDetalle"
+             Title="Detalles">
+    <StackLayout
+        VerticalOptions="StartAndExpand"
+        Padding="20"
+        x:Name="stack">
+
+        <Label Text="Id" />
+        <Entry Text="{Binding Item.Id}" IsEnabled="False"/>
+
+        <Label Text="SKU" />
+        <Entry Text="{Binding Item.SKU}"/>
+
+        <Label Text="Codigo de Barras" />
+        <Entry Text="{Binding Item.CodigoBarras}"/>
+
+        <Label Text="Material" />
+        <Entry Text="{Binding Item.Material}"/>
+
+        <Label Text="Activo" />
+        <Switch IsToggled="{Binding Item.Activo}" />
+
+        <Label Text="Borrado" />
+        <Switch IsToggled="{Binding Item.Borrado}"/>
+
+        <Label Text="Fecha Registro" />
+        <Entry Text="{Binding Item.FechaReg}" IsEnabled="False"/>
+
+        <Label Text="Usuario Registro" />
+        <Entry Text="{Binding Item.UsuarioReg}" IsEnabled="False"/>
+
+        <Label Text="Fecha Ultima Modificación" />
+        <Entry Text="{Binding Item.FechaUltMod}" IsEnabled="False"/>
+
+        <Label Text="Usuario Ultima Modificación" />
+        <Entry Text="{Binding Item.UsuarioMod}" IsEnabled="False"/>
+
+
+        <Button Text="Actualizar"  Command="{Binding FicMetSaveCommand}"/>
+        <Button Text="Eliminar" Command="{Binding FicMetDeleteCommand}"/>
+        <Button Text="Cancelar" Command="{Binding FicMetCancelCommand}"/>
+    </StackLayout>
+</ContentPage>
