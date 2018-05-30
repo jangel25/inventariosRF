@@ -60,8 +60,10 @@
             <Entry Text="{Binding Zt_inventario_conteos.IdUbicacion}"/>
 
             <Label Text="Almacen" />
-            <Entry Text="{Binding Zt_inventario_conteos.IdAlmacen}"/>
+            <Picker x:Name="pickerAlmacen" SelectedItem="{Binding Zt_inventario_conteos.IdAlmacen}">
 
+            </Picker>
+            
             <Label Text="Lote" />
             <Entry Text="{Binding Zt_inventario_conteos.Lote}"/>
 
