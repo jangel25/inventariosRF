@@ -13,13 +13,14 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
 {
     public class FicVmConteoDetInventarioItem : FicViewModelBase
     {
-
         public bool editar;
         public bool existeProducto;
 
         private zt_inventarios_conteos _zt_inventarios_conteos;
         private ObservableCollection<zt_cat_productos> _zt_cat_productos;
         public zt_cat_productos _selected_zt_cat_productos;
+        public ObservableCollection<zt_cat_unidad_medidas> _zt_cat_unidad_medida;
+        public zt_cat_unidad_medidas _selected_cat_unidad_medida;
 
         private ICommand _saveCommand;
         private ICommand _deleteCommand;
@@ -37,6 +38,16 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
             _navigationService = navigationService;
             _sqliteService = sqliteService;
         }//Fin constructor
+
+        public ObservableCollection<zt_cat_unidad_medidas> Zt_cat_unidad_medida_list
+        {
+            get { return _zt_cat_unidad_medida; }
+            set
+            {
+                _zt_cat_unidad_medida = value;
+                RaisePropertyChanged();
+            }
+        }//Fin Zt_cat_productos_list
 
         public ObservableCollection<zt_cat_productos> Zt_cat_productos_list
         {
@@ -103,17 +114,37 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
             {
                     Zt_cat_productos_list.Add(zt_cat_productos);
             }
+
+
+            var resultUM = await _sqliteService.GetAll_zt_cat_unidad_medida();
+
+            Zt_cat_unidad_medida_list = new ObservableCollection<zt_cat_unidad_medidas>();
+            foreach (var zt_cat_unidad_medida in resultUM)
+            {
+                Zt_cat_unidad_medida_list.Add(zt_cat_unidad_medida);
+            }
+
+            recuperarUMSeleccionada();
             //base.OnAppearing(navigationContext);
         }//Fin OnAppearing
 
-        private async void SaveCommandExecute()
+        private void recuperarUMSeleccionada()
         {
-            Zt_inventario_conteos.UsuarioReg = "Brian Alejandro Casas López";
-            Zt_inventario_conteos.FechaReg = DateTime.Now.Month + "-" + DateTime.Now.Day + "-" + DateTime.Now.Year;
-            Zt_inventario_conteos.HoraReg = DateTime.Now.Hour + ":" + DateTime.Now.Minute;
-            Console.WriteLine("VALOOOOOOR ");
-            //Zt_inventario_conteos.IdInventario = Zt_inventario_det.IdInventario;
+            for (int i = 0; i < Zt_cat_unidad_medida_list.Count; i++)
+            {
+                if (Zt_cat_unidad_medida_list[i].IdUMedida == Zt_inventario_conteos.IdUMedida)
+                    _selected_cat_unidad_medida = Zt_cat_unidad_medida_list[i];
+            }
+            Debug.WriteLine(SelectedZt_cat_unidad_medidas);
+        }
 
+        public async void SaveCommandExecute()
+        {
+
+            Zt_inventario_conteos.UsuarioReg = "DAM-2";
+            Zt_inventario_conteos.FechaReg = DateTime.Now.ToString("dd-MM-yyyy");
+            Zt_inventario_conteos.HoraReg = DateTime.Now.ToString("HH:mm");
+       
             await _sqliteService.Insert_zt_inventarios_conteos(Zt_inventario_conteos);
             _navigationService.NavigateBack();
         }//Fin SaveCommandExecute
@@ -163,5 +194,15 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
 
             return false;
         }
+
+        public zt_cat_unidad_medidas SelectedZt_cat_unidad_medidas
+        {
+            get { return _selected_cat_unidad_medida; }
+            set
+            {
+                _selected_cat_unidad_medida = value;
+                RaisePropertyChanged();
+            }
+        }//Fin selectedZt_inventario
     }
 }

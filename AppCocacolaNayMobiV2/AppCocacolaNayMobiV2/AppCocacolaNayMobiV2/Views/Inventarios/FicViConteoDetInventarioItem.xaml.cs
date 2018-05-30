@@ -3,6 +3,7 @@ using AppCocacolaNayMobiV2.Services.Inventarios;
 using AppCocacolaNayMobiV2.ViewModels.Inventarios;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ZXing.Net.Mobile.Forms;
@@ -20,6 +21,8 @@ namespace AppCocacolaNayMobiV2.Views.Inventarios
         FicSrvCatAlmacenList ficSrvCatAlmacenList;
         private object FicLoParameter { get; set; }
 
+        private float cantidadPZA;
+
         public FicViConteoDetInventarioItem(object ficPaParameter)
         {
             InitializeComponent();
@@ -29,23 +32,38 @@ namespace AppCocacolaNayMobiV2.Views.Inventarios
             txtIdConteo.IsEnabled = false;
             txtCEDI.IsEnabled = false;
             txtMaterial.IsEnabled = false;
+            txtCantidadPZA.IsEnabled = false;
+
+            txtNumerico.ValueChanged += (sender, e) => {
+                unidadMedidaSeleccionada();
+            };
 
             txtBuscarCodBarras.SearchButtonPressed += (sender, e) => {
                 buscarCodBarras();
+            };
+
+            pickerUM.SelectedIndexChanged += (sender, args) =>
+            {
+                unidadMedidaSeleccionada();
             };
 
             txtBuscarSKU.SearchButtonPressed += (sender, e) => {
                 buscarSKU();
             };
 
+            btnGuardar.Clicked += (sender, e) => {
+                btnGuardar_clicked();
+            };
             var fecha = DateTime.Now;
-            lblFecha.Text = fecha.Month + "-" + fecha.Day + "-" + fecha.Year;
-            lblHora.Text = fecha.Hour + ":" + fecha.Minute;
+            lblFecha.Text = fecha.ToString("dd-MM-yyyy");
+            lblHora.Text = fecha.ToString("HH:mm");
             lblUsuario.Text = "Equipo DAM-2";
 
             FicLoParameter = ficPaParameter;
 
             BindingContext = App.FicMetLocator.Zt_InvConteosItemVM;
+
+            pickerAlmacen.SelectedIndex = 0;
         }//Fin constructor
 
         protected override void OnAppearing()
@@ -64,18 +82,7 @@ namespace AppCocacolaNayMobiV2.Views.Inventarios
                 if (viewModel != null) viewModel.OnAppearing(FicLoParameter);
 
             txtIdConteo.Text = viewModel.Zt_inventario_conteos.IdConteo.ToString();
-
-            if (viewModel.Zt_inventario_conteos.FechaReg != null)
-            {
-                txtMaterial.IsEnabled = false;
-                txtCantidadPZA.IsEnabled = false;
-            }
-            else
-            {
-                txtMaterial.IsEnabled = true;
-                txtCantidadPZA.IsEnabled = true;
-            }
-        }
+        }//Fin OnAppearing
 
         protected override void OnDisappearing()
         {
@@ -124,6 +131,37 @@ namespace AppCocacolaNayMobiV2.Views.Inventarios
                 txtMaterial.Text = viewModel._selected_zt_cat_productos.Material; 
             }
             else { await DisplayAlert("Aviso", "El SKU no existe", "OK"); }
+        }
+
+        private void unidadMedidaSeleccionada()
+        {
+            var viewModel = BindingContext as FicVmConteoDetInventarioItem;
+            if (pickerUM.SelectedItem != null)
+            {
+                var selectedItem = (zt_cat_unidad_medidas) pickerUM.SelectedItem;
+                viewModel.Zt_inventario_conteos.IdUMedida = selectedItem.IdUMedida;
+               
+                txtCantidadPZA.Text = "" + viewModel.Zt_inventario_conteos.CantFisica * selectedItem.CantidadPZA;
+            }
+            else { pickerUM.SelectedItem = viewModel.SelectedZt_cat_unidad_medidas; }
+        }
+
+        private void calcularCantidadPZA() {
+            var viewModel = BindingContext as FicVmConteoDetInventarioItem;
+            var selectedItem = (zt_cat_unidad_medidas)pickerUM.SelectedItem;
+            viewModel.Zt_inventario_conteos.IdUMedida = selectedItem.IdUMedida;
+            cantidadPZA = viewModel.Zt_inventario_conteos.CantFisica * selectedItem.CantidadPZA;
+            txtCantidadPZA.Text = "" + cantidadPZA;
+        }
+
+        private async void btnGuardar_clicked() {
+            var viewModel = BindingContext as FicVmConteoDetInventarioItem;
+            if (viewModel.FindProductoSKUExecute(txtBuscarSKU.Text) &&
+                viewModel.FindProductoCodBarrasExecute(txtBuscarCodBarras.Text))
+            {
+                viewModel.SaveCommandExecute(); 
+            }
+            else { await DisplayAlert("Aviso", "No se puede hacer un conteo a un producto no registrado, verifique SKU o Codigo de barras", "OK"); }
         }
     }
 }

@@ -104,7 +104,7 @@ namespace AppCocacolaNayMobiV2.Services.Inventarios
             await ficSQLiteConnection.DeleteAsync(zt_inventarios_conteos);
         }//Fin remove
 
-        //Esto es para zt_cat_unidad_medidas
+        //Esto es para zt_cat_productos
         public async Task<IList<zt_cat_productos>> GetAll_zt_cat_productos()
         {
             var zt_cat_productos = new List<zt_cat_productos>();
@@ -114,6 +114,18 @@ namespace AppCocacolaNayMobiV2.Services.Inventarios
             }
 
             return zt_cat_productos;
+        }//Fin GetAll
+
+        //Esto es para zt_cat_unidad_medidas
+        public async Task<IList<zt_cat_unidad_medidas>> GetAll_zt_cat_unidad_medida()
+        {
+            var zt_cat_unidad_medidas = new List<zt_cat_unidad_medidas>();
+            using (await ficMutex.LockAsync().ConfigureAwait(false))
+            {
+                zt_cat_unidad_medidas = await ficSQLiteConnection.Table<zt_cat_unidad_medidas>().ToListAsync().ConfigureAwait(false);
+            }
+
+            return zt_cat_unidad_medidas;
         }//Fin GetAll
     }
 }//Fin clase

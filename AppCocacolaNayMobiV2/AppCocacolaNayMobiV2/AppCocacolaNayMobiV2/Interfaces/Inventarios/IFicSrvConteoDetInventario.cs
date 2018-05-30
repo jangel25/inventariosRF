@@ -16,7 +16,10 @@ namespace AppCocacolaNayMobiV2.Interfaces.Inventarios
         Task Insert_zt_inventarios_conteos(zt_inventarios_conteos zt_Inventarios_conteos);
         Task Remove_zt_inventarios_conteos(zt_inventarios_conteos zt_Inventarios_conteos);
 
-        //zt_cat_unidad_medidas
+        //zt_cat_productos
         Task<IList<zt_cat_productos>> GetAll_zt_cat_productos();
+
+        //zt_cat_unidades_medida
+        Task<IList<zt_cat_unidad_medidas>> GetAll_zt_cat_unidad_medida();
     }
 }

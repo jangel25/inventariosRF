@@ -26,7 +26,7 @@
            Grid.Column="0"
            IsVisible="true"
            Placeholder="Buscar por codigo de barras"
-           SearchCommand=""
+           HorizontalOptions="FillAndExpand"
            Text="{Binding Zt_inventario_conteos.CodBarras}"></SearchBar>
                 
                 <Button Text="Escanear" x:Name="btnBarras" HorizontalOptions="End"/>
@@ -44,25 +44,20 @@
             <Entry Text="{Binding Zt_inventario_conteos.Material}" x:Name="txtMaterial"/>
 
             <Label Text="Cantidad fisica" />
-            <numeric:SfNumericUpDown MaximumDecimalDigits="0" Minimum="0" Value="{Binding Zt_inventario_conteos.CantFisica}"/>
+            <numeric:SfNumericUpDown MaximumDecimalDigits="0" Minimum="0" Value="{Binding Zt_inventario_conteos.CantFisica}" x:Name="txtNumerico"/>
 
             <Label Text="Unidad medida"/>
-            <Picker SelectedItem="{Binding Zt_inventario_conteos.IdUMedida}">
-                <Picker.Items>
-                    <x:String>Cajas</x:String>
-                    <x:String>Piezas</x:String>
-                    <x:String>Six pack</x:String>
-                    <x:String>Docena</x:String>
-                </Picker.Items>
-            </Picker>
+            <Picker ItemsSource="{Binding Zt_cat_unidad_medida_list}"
+                    x:Name="pickerUM"
+                    ItemDisplayBinding="{Binding UMedida}"
+                   />
 
             <Label Text="Ubicacion" />
             <Entry Text="{Binding Zt_inventario_conteos.IdUbicacion}"/>
 
             <Label Text="Almacen" />
-            <Picker x:Name="pickerAlmacen" SelectedItem="{Binding Zt_inventario_conteos.IdAlmacen}">
+            <Picker x:Name="pickerAlmacen" SelectedItem="{Binding Zt_inventario_conteos.IdAlmacen}"/>
 
-            </Picker>
             
             <Label Text="Lote" />
             <Entry Text="{Binding Zt_inventario_conteos.Lote}"/>
@@ -87,7 +82,7 @@
                 <Label x:Name="lblHora" Text="{Binding Zt_inventario_conteos.HoraReg}"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center"/>
                 <Label x:Name="lblUsuario" Text="{Binding Zt_inventario_conteos.UsuarioReg}"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
             </Grid>
-            <Button Text="Guardar"  Command="{Binding SaveCommand}"/>
+            <Button Text="Guardar"  x:Name="btnGuardar"/>
             <Button Text="Cancelar" Command="{Binding CancelCommand}"/>
         </StackLayout>
     </ScrollView>
