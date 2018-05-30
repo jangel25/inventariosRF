@@ -21,6 +21,15 @@ namespace AppCocacolaNayMobiV2.Views.Inventarios
             txtIdInventario.IsEnabled = false;
             txtIdConteo.IsEnabled = false;
             txtCEDI.IsEnabled = false;
+            txtMaterial.IsEnabled = false;
+
+            txtBuscarCodBarras.SearchButtonPressed += (sender, e) => {
+                buscarCodBarras();
+            };
+
+            txtBuscarSKU.SearchButtonPressed += (sender, e) => {
+                buscarSKU();
+            };
 
             var fecha = DateTime.Now;
             lblFecha.Text = fecha.Month + "-" + fecha.Day + "-" + fecha.Year;
@@ -67,12 +76,37 @@ namespace AppCocacolaNayMobiV2.Views.Inventarios
                     Navigation.PopModalAsync();
                     DisplayAlert("Código Escaneado", result.Text, "OK");
                     texto = result.Text;
-                    txtBarra.Text = texto;
+                    txtBuscarCodBarras.Text = texto;
                 });
                 ;
             };
 
             await Navigation.PushModalAsync(scanPage);
+            buscarCodBarras();
+        }
+
+        private async void buscarCodBarras()
+        {
+            var viewModel = BindingContext as FicVmConteoDetInventarioItem;
+            if (viewModel.FindProductoCodBarrasExecute(txtBuscarCodBarras.Text))
+            {
+                txtBuscarCodBarras.Text = viewModel._selected_zt_cat_productos.CodigoBarras;
+                txtBuscarSKU.Text = viewModel._selected_zt_cat_productos.SKU;
+                txtMaterial.Text = viewModel._selected_zt_cat_productos.Material;
+            }
+            else { await DisplayAlert("Aviso", "Este código de barras no existe", "OK"); }
+        }
+
+        private async void buscarSKU()
+        {
+            var viewModel = BindingContext as FicVmConteoDetInventarioItem;
+            if (viewModel.FindProductoSKUExecute(txtBuscarSKU.Text))
+            {
+                txtBuscarCodBarras.Text = viewModel._selected_zt_cat_productos.CodigoBarras;
+                txtBuscarSKU.Text = viewModel._selected_zt_cat_productos.SKU;
+                txtMaterial.Text = viewModel._selected_zt_cat_productos.Material; 
+            }
+            else { await DisplayAlert("Aviso", "El SKU no existe", "OK"); }
         }
     }
 }

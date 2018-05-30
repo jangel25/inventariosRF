@@ -21,15 +21,27 @@
 
             <Label Text="Codigo de barras" />
             <StackLayout Orientation="Horizontal">
-                <Entry x:Name="txtBarra" Text="{Binding Zt_inventario_conteos.CodBarras}" HorizontalOptions="FillAndExpand"/>
+           <SearchBar x:Name="txtBuscarCodBarras"
+           Grid.Row="0"
+           Grid.Column="0"
+           IsVisible="true"
+           Placeholder="Buscar por codigo de barras"
+           SearchCommand=""
+           Text="{Binding Zt_inventario_conteos.CodBarras}"></SearchBar>
+                
                 <Button Text="Escanear" x:Name="btnBarras" HorizontalOptions="End"/>
             </StackLayout>
 
-            <Label Text="SKU" />
-            <Entry Text="{Binding Zt_inventario_conteos.SKU}" x:Name="txtSKU"/>
+           <Label Text="SKU"/>
+           <SearchBar x:Name="txtBuscarSKU"
+           Grid.Row="0"
+           Grid.Column="0"
+           IsVisible="true"
+           Placeholder="Buscar SKU"
+           Text="{Binding Zt_inventario_conteos.SKU}"></SearchBar>
 
-            <Label Text="Material" x:Name="txtMaterial"/>
-            <Entry Text="{Binding Zt_inventario_conteos.Material}"/>
+            <Label Text="Material"/>
+            <Entry Text="{Binding Zt_inventario_conteos.Material}" x:Name="txtMaterial"/>
 
             <Label Text="Cantidad fisica" />
             <numeric:SfNumericUpDown MaximumDecimalDigits="0" Minimum="0" Value="{Binding Zt_inventario_conteos.CantFisica}"/>
