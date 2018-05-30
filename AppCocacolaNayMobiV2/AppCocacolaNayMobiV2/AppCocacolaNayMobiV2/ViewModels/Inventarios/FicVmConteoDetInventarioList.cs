@@ -103,7 +103,8 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
             Zt_inventarios_conteos = new ObservableCollection<zt_inventarios_conteos>();
             foreach (var zt_inventario_conteos in result)
             {
-                Zt_inventarios_conteos.Add(zt_inventario_conteos);
+                if(zt_inventario_conteos.IdInventario == Zt_inventario_det.IdInventario)
+                    Zt_inventarios_conteos.Add(zt_inventario_conteos);
             }
         }//Fin OnAppearing
 
@@ -279,7 +280,10 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
                         if (item.Id.ToString().ToLower().Contains(FilterText.ToLower()) ||
                             item.SKU.ToLower().Contains(FilterText.ToLower()) ||
                             item.IdInventario.ToLower().Contains(FilterText.ToLower()) ||
-                            item.IdAlmacen.ToLower().Contains(FilterText.ToLower()))
+                            item.IdAlmacen.ToLower().Contains(FilterText.ToLower()) ||
+                            item.IdUbicacion.ToLower().Contains(FilterText.ToLower()) ||
+                            item.Material.ToLower().Contains(FilterText.ToLower()) ||
+                            item.CantFisica.ToString().ToLower().Contains(FilterText.ToLower()))
                             return true;
                         return false;
                     }

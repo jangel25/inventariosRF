@@ -25,6 +25,10 @@ namespace AppCocacolaNayMobiV2.Views.Inventarios
             if (viewModel != null) viewModel.OnAppearing(Parameter);
 
             viewModel.filterTextChanged = OnFilterChanged;
+            lblInventario.Text = "      Inventario: "+viewModel.Zt_inventario_det.IdInventario;
+            lblCEDI.Text = "      CEDI:" + viewModel.Zt_inventario_det.IdCEDI;
+            lblFechaInventario.Text = "      Fecha de registro: "+viewModel.Zt_inventario_det.FechaReg;
+
         }//Fin OnApperaring
 
         private void OnFilterChanged()

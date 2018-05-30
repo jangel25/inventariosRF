@@ -53,11 +53,17 @@
 
     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
 
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+            <Label x:Name="lblInventario"/>
+            <Label x:Name="lblCEDI"/>
+            <Label x:Name="lblFechaInventario"/>
+        </StackLayout>
+
         <SearchBar x:Name="filterText"
            Grid.Row="0"
            Grid.Column="0"
            IsVisible="true"
-           Placeholder="Buscar: ID, INVENTARIO, SKU O ALMACEN"
+           Placeholder="Buscar: ID, SKU, MATERIAL, CANTIDAD FISICA O ALMACEN"
            TextChanged="OnFilterTextChanged" />
         <syncfusion:SfDataGrid     ColumnSizer="Star"
                                AutoGenerateColumns="False"
@@ -72,11 +78,12 @@
                 <syncfusion:GridTextColumn HeaderText="ID" 
                                    MappingName="Id" />
 
-                <syncfusion:GridTextColumn HeaderText="INVETARIO"
-                                   MappingName="IdInventario" />
 
                 <syncfusion:GridTextColumn HeaderText="SKU"
                                    MappingName="SKU" />
+
+                <syncfusion:GridTextColumn HeaderText="MATERIAL"
+                                   MappingName="Material" />
 
                 <syncfusion:GridTextColumn HeaderText="CONTEO"
                                    MappingName="IdConteo" />
