@@ -16,6 +16,8 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
         public bool editar;
         public bool existeProducto;
 
+        private ObservableCollection<zt_inventarios_conteos> _zt_inventario_conteos_list;
+
         private zt_inventarios_conteos _zt_inventarios_conteos;
         private ObservableCollection<zt_cat_productos> _zt_cat_productos;
         public zt_cat_productos _selected_zt_cat_productos;
@@ -38,6 +40,16 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
             _navigationService = navigationService;
             _sqliteService = sqliteService;
         }//Fin constructor
+
+        public ObservableCollection<zt_inventarios_conteos> Zt_inventarios_conteos_list
+        {
+            get { return _zt_inventario_conteos_list; }
+            set
+            {
+                _zt_inventario_conteos_list = value;
+                RaisePropertyChanged();
+            }
+        }//Fin Zt_inventarios
 
         public ObservableCollection<zt_cat_unidad_medidas> Zt_cat_unidad_medida_list
         {
@@ -124,6 +136,15 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
                 Zt_cat_unidad_medida_list.Add(zt_cat_unidad_medida);
             }
 
+            var resultConteosList = await _sqliteService.GetAll_zt_inventarios_conteos();
+
+            Zt_inventarios_conteos_list = new ObservableCollection<zt_inventarios_conteos>();
+            foreach (var zt_inventarios_conteos in resultConteosList)
+            {
+                if(Zt_inventario_conteos.IdInventario == zt_inventarios_conteos.IdInventario)
+                    Zt_inventarios_conteos_list.Add(zt_inventarios_conteos);
+            }
+
             recuperarUMSeleccionada();
             //base.OnAppearing(navigationContext);
         }//Fin OnAppearing
@@ -140,11 +161,25 @@ namespace AppCocacolaNayMobiV2.ViewModels.Inventarios
 
         public async void SaveCommandExecute()
         {
-
+            int conteo = 1;
             Zt_inventario_conteos.UsuarioReg = "DAM-2";
             Zt_inventario_conteos.FechaReg = DateTime.Now.ToString("dd-MM-yyyy");
             Zt_inventario_conteos.HoraReg = DateTime.Now.ToString("HH:mm");
-       
+
+            for (int i = 0; i < Zt_inventarios_conteos_list.Count; i++) {
+                if (Zt_inventario_conteos.IdInventario == Zt_inventarios_conteos_list[i].IdInventario &&
+                    Zt_inventario_conteos.SKU == Zt_inventarios_conteos_list[i].SKU &&
+                    Zt_inventario_conteos.IdUbicacion == Zt_inventarios_conteos_list[i].IdUbicacion &&
+                    Zt_inventario_conteos.IdInventario == Zt_inventarios_conteos_list[i].IdInventario &&
+                    Zt_inventario_conteos.IdCEDI == Zt_inventarios_conteos_list[i].IdCEDI &&
+                    Zt_inventario_conteos.IdAlmacen == Zt_inventarios_conteos_list[i].IdAlmacen &&
+                    Zt_inventario_conteos.IdUMedida == Zt_inventarios_conteos_list[i].IdUMedida)
+                {
+                    conteo++;
+                }
+            }
+
+            Zt_inventario_conteos.IdConteo = conteo;
             await _sqliteService.Insert_zt_inventarios_conteos(Zt_inventario_conteos);
             _navigationService.NavigateBack();
         }//Fin SaveCommandExecute
